@@ -5,7 +5,12 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
+<<<<<<< HEAD
     "test": "echo \"Info: no tests implemented yet\""
+=======
+    "dev": "node --watch index.js",
+    "test": "echo \"No tests specified currently\" && exit 0"
+>>>>>>> f9d287998eeda6f47a9e737736657fab5eeed8d8
   },
   "keywords": [],
   "author": "",

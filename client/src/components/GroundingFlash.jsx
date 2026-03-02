@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
+// eslint-disable-next-line no-unused-vars
+import { motion } from 'framer-motion';
 
 const MAPPING = [
     { count: 5, sense: "SEE 👁", color: "from-cyan-900/40 to-blue-900/40" },

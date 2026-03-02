@@ -1,11 +1,12 @@
 import { useState, useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+// eslint-disable-next-line no-unused-vars
 import { AnimatePresence, motion } from 'framer-motion';
 import { SensorMonitor } from '../components/SensorMonitor';
 import { TapZone } from '../components/TapZone';
 import { StressOrb } from '../components/StressOrb';
-import { BreathingCircle } from '../components/BreathingCircle';
-import { GroundingFlash } from '../components/GroundingFlash';
+import { BreathingGame } from '../components/games/BreathingGame';
+import { FocusGame } from '../components/games/FocusGame';
 import { analyzeStress, saveSession } from '../api/neurocalm';
 import { useAccelerometer } from '../hooks/useAccelerometer';
 
@@ -24,8 +25,10 @@ export const InterventionPage = () => {
         if (step === 'permission_check') {
             // Check if iOS by looking for the requestPermission function
             if (isSupported && !permissionGranted && typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.requestPermission === 'function') {
+                // eslint-disable-next-line react-hooks/set-state-in-effect
                 setStep('permission');
             } else {
+                // eslint-disable-next-line react-hooks/set-state-in-effect
                 setStep('tap');
             }
         }
@@ -58,7 +61,8 @@ export const InterventionPage = () => {
         try {
             await updateSession(finalResult.sessionId, {
                 interventionDuration: duration,
-                completedIntervention: true
+                completedIntervention: true,
+                gameScore: resultOverride?.gameScore || 0
             });
             setStep('done');
             setTimeout(() => navigate('/dashboard'), 2000);
@@ -119,10 +123,12 @@ export const InterventionPage = () => {
                 {step === 'intervention' && analysisResult && (
                     <motion.div key="intervention" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex flex-1 w-full">
                         {(analysisResult.interventionType === 'breathing') ? (
-                            <BreathingCircle onComplete={() => handleInterventionComplete()} />
+                            <BreathingGame onComplete={(res) => handleInterventionComplete(res, 60)} />
                         ) : analysisResult.interventionType === 'grounding' ? (
-                            <GroundingFlash onComplete={() => handleInterventionComplete(null, 30)} />
-                        ) : null}
+                            <FocusGame onComplete={(res) => handleInterventionComplete(res, 60)} />
+                        ) : (
+                            <FocusGame onComplete={(res) => handleInterventionComplete(res, 60)} />
+                        )}
                     </motion.div>
                 )}
 

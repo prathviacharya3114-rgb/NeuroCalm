@@ -19,9 +19,12 @@ export const useLightSensor = () => {
                     setLux(sensor.illuminance);
                 });
                 sensor.start();
+                // eslint-disable-next-line react-hooks/set-state-in-effect
                 setIsSupported(true);
                 return () => sensor.stop();
+                // eslint-disable-next-line no-unused-vars
             } catch (err) {
+                // eslint-disable-next-line react-hooks/set-state-in-effect
                 setIsSupported(false);
             }
         } else {

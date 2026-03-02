@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
+// eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
 import { useTapRhythm } from '../hooks/useTapRhythm';
 import { useAccelerometer } from '../hooks/useAccelerometer';
@@ -10,16 +11,27 @@ export const TapZone = ({ onAnalysisComplete }) => {
     const { lux } = useLightSensor();
     const [timeLeft, setTimeLeft] = useState(5);
 
+    const latestData = useRef({ tapSpeed, onAnalysisComplete });
+
+    useEffect(() => {
+        latestData.current = { tapSpeed, onAnalysisComplete };
+    }, [tapSpeed, onAnalysisComplete]);
+
     useEffect(() => {
         let timer;
         if (isTracking && timeLeft > 0) {
-            timer = setTimeout(() => setTimeLeft(prev => prev - 1), 1000);
-        } else if (isTracking && timeLeft === 0) {
-            stopTracking();
-            onAnalysisComplete({ tapSpeed });
+            timer = setInterval(() => setTimeLeft(prev => prev - 1), 1000);
         }
-        return () => clearTimeout(timer);
-    }, [isTracking, timeLeft, onAnalysisComplete, tapSpeed, stopTracking]);
+        return () => clearInterval(timer);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isTracking, timeLeft]);
+
+    useEffect(() => {
+        if (isTracking && timeLeft === 0) {
+            stopTracking();
+            latestData.current.onAnalysisComplete({ tapSpeed: latestData.current.tapSpeed });
+        }
+    }, [isTracking, timeLeft, stopTracking]);
 
     const getGlowColor = () => {
         if (tapSpeed > 4) return 'glow-red bg-red-900/40 text-red-500';

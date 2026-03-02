@@ -5,9 +5,10 @@ export const useTapRhythm = () => {
     const [tapCount, setTapCount] = useState(0);
     const [isTracking, setIsTracking] = useState(false);
     const tapsRef = useRef([]);
+    const isTrackingRef = useRef(false);
 
     const handleTap = useCallback(() => {
-        if (!isTracking) return;
+        if (!isTrackingRef.current) return;
         const now = Date.now();
         tapsRef.current.push(now);
 
@@ -16,18 +17,20 @@ export const useTapRhythm = () => {
 
         setTapCount(prev => prev + 1);
         setTapSpeed(tapsRef.current.length / 3);
-    }, [isTracking]);
+    }, []);
 
-    const startTracking = () => {
+    const startTracking = useCallback(() => {
         setIsTracking(true);
+        isTrackingRef.current = true;
         tapsRef.current = [];
         setTapCount(0);
         setTapSpeed(0);
-    };
+    }, []);
 
-    const stopTracking = () => {
+    const stopTracking = useCallback(() => {
         setIsTracking(false);
-    };
+        isTrackingRef.current = false;
+    }, []);
 
     return { tapSpeed, tapCount, isTracking, startTracking, stopTracking, handleTap };
 };
