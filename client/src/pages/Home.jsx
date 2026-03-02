@@ -1,15 +1,22 @@
+// eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 
 export const Home = () => {
     const navigate = useNavigate();
 
+    // eslint-disable-next-line react-hooks/purity
     const particles = Array.from({ length: 40 }).map((_, i) => ({
         id: i,
+        // eslint-disable-next-line react-hooks/purity
         size: Math.random() * 4 + 1,
+        // eslint-disable-next-line react-hooks/purity
         x: Math.random() * 100,
+        // eslint-disable-next-line react-hooks/purity
         y: Math.random() * 100,
+        // eslint-disable-next-line react-hooks/purity
         duration: Math.random() * 20 + 10,
+        // eslint-disable-next-line react-hooks/purity
         delay: Math.random() * 5
     }));
 

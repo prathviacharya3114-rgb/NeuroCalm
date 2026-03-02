@@ -1,0 +1,176 @@
+﻿
+> client@0.0.0 lint
+> eslint .
+
+
+C:\Users\yadha\Downloads\NeuroCalm\NeuroCalm\client\src\components\BreathingCircle.jsx
+  2:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\Users\yadha\Downloads\NeuroCalm\NeuroCalm\client\src\components\GroundingFlash.jsx
+  2:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\Users\yadha\Downloads\NeuroCalm\NeuroCalm\client\src\components\StressOrb.jsx
+  1:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\Users\yadha\Downloads\NeuroCalm\NeuroCalm\client\src\components\TapZone.jsx
+   2:10  error    'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u                                no-unused-vars
+  25:8   warning  React Hook useEffect has a missing dependency: 'timeLeft'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+C:\Users\yadha\Downloads\NeuroCalm\NeuroCalm\client\src\components\games\BreathingGame.jsx
+  2:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\Users\yadha\Downloads\NeuroCalm\NeuroCalm\client\src\components\games\FocusGame.jsx
+   2:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 no-unused-vars
+  56:41  error  Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+  54 |                                 opacity: 1,
+  55 |                                 scale: [1, 1.2, 1],
+> 56 |                                 x: [0, (Math.random() - 0.5) * 60, 0],
+     |                                         ^^^^^^^^^^^^^ Cannot call impure function
+  57 |                                 y: [0, (Math.random() - 0.5) * 60, 0]
+  58 |                             }}
+  59 |                             exit={{ opacity: 0, scale: 0 }}  react-hooks/purity
+  57:41  error  Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+  55 |                                 scale: [1, 1.2, 1],
+  56 |                                 x: [0, (Math.random() - 0.5) * 60, 0],
+> 57 |                                 y: [0, (Math.random() - 0.5) * 60, 0]
+     |                                         ^^^^^^^^^^^^^ Cannot call impure function
+  58 |                             }}
+  59 |                             exit={{ opacity: 0, scale: 0 }}
+  60 |                             transition={{    react-hooks/purity
+
+C:\Users\yadha\Downloads\NeuroCalm\NeuroCalm\client\src\hooks\useAccelerometer.js
+  11:13  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+   9 |     useEffect(() => {
+  10 |         if (typeof window.DeviceMotionEvent !== 'undefined') {
+> 11 |             setIsSupported(true);
+     |             ^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  12 |         }
+  13 |     }, []);
+  14 |  react-hooks/set-state-in-effect
+
+C:\Users\yadha\Downloads\NeuroCalm\NeuroCalm\client\src\hooks\useHaptics.js
+  7:9  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+   5 |
+   6 |     useEffect(() => {
+>  7 |         setIsSupported('vibrate' in navigator);
+     |         ^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+   8 |     }, []);
+   9 |
+  10 |     const breatheIn = useCallback(() => {  react-hooks/set-state-in-effect
+
+C:\Users\yadha\Downloads\NeuroCalm\NeuroCalm\client\src\hooks\useLightSensor.js
+  22:17  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+  20 |                 });
+  21 |                 sensor.start();
+> 22 |                 setIsSupported(true);
+     |                 ^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  23 |                 return () => sensor.stop();
+  24 |             } catch (err) {
+  25 |                 setIsSupported(false);  react-hooks/set-state-in-effect
+  24:22  error  'err' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 no-unused-vars
+
+C:\Users\yadha\Downloads\NeuroCalm\NeuroCalm\client\src\pages\Home.jsx
+   1:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                no-unused-vars
+   9:15  error  Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+   7 |     const particles = Array.from({ length: 40 }).map((_, i) => ({
+   8 |         id: i,
+>  9 |         size: Math.random() * 4 + 1,
+     |               ^^^^^^^^^^^^^ Cannot call impure function
+  10 |         x: Math.random() * 100,
+  11 |         y: Math.random() * 100,
+  12 |         duration: Math.random() * 20 + 10,  react-hooks/purity
+  10:12  error  Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+   8 |         id: i,
+   9 |         size: Math.random() * 4 + 1,
+> 10 |         x: Math.random() * 100,
+     |            ^^^^^^^^^^^^^ Cannot call impure function
+  11 |         y: Math.random() * 100,
+  12 |         duration: Math.random() * 20 + 10,
+  13 |         delay: Math.random() * 5                                      react-hooks/purity
+  11:12  error  Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+   9 |         size: Math.random() * 4 + 1,
+  10 |         x: Math.random() * 100,
+> 11 |         y: Math.random() * 100,
+     |            ^^^^^^^^^^^^^ Cannot call impure function
+  12 |         duration: Math.random() * 20 + 10,
+  13 |         delay: Math.random() * 5
+  14 |     }));                                            react-hooks/purity
+  12:19  error  Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+  10 |         x: Math.random() * 100,
+  11 |         y: Math.random() * 100,
+> 12 |         duration: Math.random() * 20 + 10,
+     |                   ^^^^^^^^^^^^^ Cannot call impure function
+  13 |         delay: Math.random() * 5
+  14 |     }));
+  15 |                                                                          react-hooks/purity
+  13:16  error  Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+  11 |         y: Math.random() * 100,
+  12 |         duration: Math.random() * 20 + 10,
+> 13 |         delay: Math.random() * 5
+     |                ^^^^^^^^^^^^^ Cannot call impure function
+  14 |     }));
+  15 |
+  16 |     return (                                                                                                react-hooks/purity
+
+C:\Users\yadha\Downloads\NeuroCalm\NeuroCalm\client\src\pages\InterventionPage.jsx
+   3:27  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     no-unused-vars
+  27:17  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+  25 |             // Check if iOS by looking for the requestPermission function
+  26 |             if (isSupported && !permissionGranted && typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.requestPermission === 'function') {
+> 27 |                 setStep('permission');
+     |                 ^^^^^^^ Avoid calling setState() directly within an effect
+  28 |             } else {
+  29 |                 setStep('tap');
+  30 |             }  react-hooks/set-state-in-effect
+
+Γ£û 21 problems (20 errors, 1 warning)
+

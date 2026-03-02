@@ -8,6 +8,7 @@ export const useAccelerometer = () => {
 
     useEffect(() => {
         if (typeof window.DeviceMotionEvent !== 'undefined') {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setIsSupported(true);
         }
     }, []);

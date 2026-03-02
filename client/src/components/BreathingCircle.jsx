@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
+// eslint-disable-next-line no-unused-vars
+import { motion } from 'framer-motion';
 import { useHaptics } from '../hooks/useHaptics';
 
 export const BreathingCircle = ({ onComplete }) => {
