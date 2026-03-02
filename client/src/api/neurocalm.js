@@ -14,6 +14,11 @@ export const saveSession = async (sessionData) => {
     return response.data;
 };
 
+export const updateSession = async (sessionId, updateData) => {
+    const response = await api.put(`/sessions/${sessionId}`, updateData);
+    return response.data;
+};
+
 export const getSessions = async () => {
     const response = await api.get('/sessions');
     return response.data;

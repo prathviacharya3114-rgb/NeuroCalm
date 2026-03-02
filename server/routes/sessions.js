@@ -17,6 +17,18 @@ router.post('/', async (req, res) => {
     }
 });
 
+router.put('/:sessionId', async (req, res) => {
+    try {
+        const { sessionId } = req.params;
+        const updateData = req.body;
+        const session = await Session.findOneAndUpdate({ sessionId }, updateData, { new: true });
+        if (!session) return res.status(404).json({ error: 'Session not found' });
+        res.json(session);
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to update session' });
+    }
+});
+
 router.get('/', async (req, res) => {
     try {
         const sessions = await Session.find().sort({ timestamp: -1 }).limit(20);

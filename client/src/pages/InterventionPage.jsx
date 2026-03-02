@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { SensorMonitor } from '../components/SensorMonitor';
@@ -35,7 +35,8 @@ export const InterventionPage = () => {
         setStep('analyzing');
         try {
             const payload = { ...sensorData, tapSpeed };
-            const result = await analyzeStress(payload);
+            const response = await analyzeStress(payload);
+            const result = response.data; // Adjusted to match new backend response structure
             setAnalysisResult(result);
             setStep('result');
 
@@ -55,22 +56,17 @@ export const InterventionPage = () => {
     const handleInterventionComplete = async (resultOverride, duration = 60) => {
         const finalResult = resultOverride || analysisResult;
         try {
-            await saveSession({
-                sessionId: crypto.randomUUID(),
-                stressLevel: finalResult.stressLevel,
-                stressScore: finalResult.stressScore,
-                triggers: sensorData,
-                interventionType: finalResult.interventionType,
+            await updateSession(finalResult.sessionId, {
                 interventionDuration: duration,
                 completedIntervention: true
             });
             setStep('done');
             setTimeout(() => navigate('/dashboard'), 2000);
         } catch (err) {
-            console.error("Failed to save session", err);
+            console.error("Failed to update session", err);
             // Optional offline resilience via localStorage
             const offlineSessions = JSON.parse(localStorage.getItem('offlineSessions') || '[]');
-            offlineSessions.push({ ...finalResult, timestamp: new Date() });
+            offlineSessions.push({ ...finalResult, completedIntervention: true, timestamp: new Date() });
             localStorage.setItem('offlineSessions', JSON.stringify(offlineSessions));
             setStep('done');
             setTimeout(() => navigate('/dashboard'), 2000);

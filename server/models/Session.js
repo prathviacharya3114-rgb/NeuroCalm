@@ -11,8 +11,7 @@ const sessionSchema = new mongoose.Schema({
         isLateNight: Boolean,
         ambientLight: Number
     },
-    interventionType: { type: String },
-    interventionDuration: { type: Number },
+    interventionType: { type: String, enum: ["breathing", "grounding", "affirmation", "haptic_reset"], required: true },
     completedIntervention: { type: Boolean, default: false }
 });
 
